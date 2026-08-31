@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - TalkTap Live Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="TalkTap" />
+<link rel="manifest" href="/site.webmanifest" />
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Header */
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #6366f1; }
+        .app-logo { height: 42px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #6366f1; letter-spacing: -1px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .nav-links a:hover { color: #6366f1; }
+
+        /* --- HERO SECTION --- */
+        .policy-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .policy-hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
+        .last-updated { font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* --- LEGAL CONTENT LAYOUT --- */
+        .legal-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .sidebar-title { font-weight: 800; margin-bottom: 20px; display: block; color: #0f172a; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 12px; }
+        .sidebar a { text-decoration: none; color: #64748b; font-size: 0.95rem; font-weight: 500; display: block; transition: all 0.3s; }
+        .sidebar a:hover { color: #6366f1; transform: translateX(5px); }
+
+        /* Main Text Area */
+        .policy-content {
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .policy-section { margin-bottom: 50px; scroll-margin-top: 120px; }
+        .policy-section h2 { color: #0f172a; font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .policy-section p { line-height: 1.8; color: #475569; margin-bottom: 20px; font-size: 1.05rem; }
+        .policy-section ul { margin-left: 20px; margin-bottom: 20px; color: #475569; }
+        .policy-section li { margin-bottom: 12px; line-height: 1.7; font-size: 1rem; }
+        .policy-section strong { color: #1e293b; }
+
+        /* Highlight Box */
+        .info-box { background: #f1f5f9; border-left: 4px solid #6366f1; padding: 20px; border-radius: 8px; margin: 20px 0; }
+
+         /* Footer */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        @media (max-width: 992px) {
+            .legal-container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .policy-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="connect.html">Creator Center</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="policy-hero">
+        <h1>Privacy Policy</h1>
+        <span class="last-updated">Effective Date: December 28, 2025</span>
+    </div>
+
+    <div class="legal-container">
+        
+        <nav class="sidebar">
+            <span class="sidebar-title">Sections</span>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#collection">2. Data Collection</a></li>
+                <li><a href="#streaming-data">3. Streaming & Audio Data</a></li>
+                <li><a href="#usage">4. How We Use Data</a></li>
+                <li><a href="#gifting">5. Virtual Gifting & Payments</a></li>
+                <li><a href="#security">6. Data Security</a></li>
+                <li><a href="#retention">7. Data Retention</a></li>
+                <li><a href="#rights">8. Your Rights</a></li>
+                <li><a href="#contact">9. Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="policy-content">
+            
+            <div id="introduction" class="policy-section">
+                <h2>1. Introduction</h2>
+                <p>TalkTap ("we," "our," or "us"), operated by Ramesh Chilaka, is a live streaming and broadcasting platform. We value your privacy and are committed to protecting the personal data of our streamers (Broadcasters) and viewers.</p>
+                <p>This Privacy Policy outlines how we handle information collected through our mobile application and website. By using TalkTap, you consent to the data practices described in this policy.</p>
+                <div class="info-box">
+                    <strong>Note:</strong> TalkTap is a professional broadcasting platform. We do not support or collect data for dating purposes.
+                </div>
+            </div>
+
+            <div id="collection" class="policy-section">
+                <h2>2. Data We Collect</h2>
+                <p>To provide a high-quality streaming experience, we collect the following:</p>
+                <ul>
+                    <li><strong>Identity Data:</strong> Name, age (to verify 18+ requirement), and profile picture.</li>
+                    <li><strong>Contact Data:</strong> Email address and phone number used for account verification.</li>
+                    <li><strong>Broadcaster Verification:</strong> For verified creators, we may collect government ID details to ensure platform authenticity and prevent fraud.</li>
+                    <li><strong>Device Data:</strong> IP address, device model, operating system, and unique device identifiers.</li>
+                </ul>
+            </div>
+
+            <div id="streaming-data" class="policy-section">
+                <h2>3. Streaming & Audio Data</h2>
+                <p>As a live streaming platform, our processing of media data is core to our service:</p>
+                <ul>
+                    <li><strong>Live Broadcasts:</strong> We process real-time audio and video streams. These are transmitted to viewers as requested by the broadcaster.</li>
+                    <li><strong>AI Monitoring:</strong> Our safety systems analyze streams in real-time to detect violations of our community guidelines (e.g., adult content or hate speech). This is done to maintain a professional environment.</li>
+                </ul>
+            </div>
+
+            <div id="usage" class="policy-section">
+                <h2>4. How We Use Your Data</h2>
+                <p>We use your information to maintain a secure and functional broadcasting ecosystem:</p>
+                <ul>
+                    <li><strong>Service Delivery:</strong> To host live rooms, enable real-time interactions, and manage follow lists.</li>
+                    <li><strong>Safety & Moderation:</strong> To investigate reports of misconduct and enforce our "Zero Tolerance" policy against inappropriate content.</li>
+                    <li><strong>Platform Improvement:</strong> Analyzing usage patterns to optimize streaming quality and latency.</li>
+                </ul>
+            </div>
+
+            <div id="gifting" class="policy-section">
+                <h2>5. Virtual Gifting & Payments</h2>
+                <p>If you purchase TalkTap Coins or receive virtual gifts:</p>
+                <ul>
+                    <li><strong>Transaction Processing:</strong> We use secure third-party payment gateways (like Razorpay, Google Play, or Apple Pay). We do not store your full credit card or bank details on our servers.</li>
+                    <li><strong>Broadcaster Earnings:</strong> We keep records of gifts received by creators to calculate and process weekly payouts.</li>
+                </ul>
+            </div>
+
+            <div id="security" class="policy-section">
+                <h2>6. Data Security</h2>
+                <p>We implement industry-standard encryption (SSL/TLS) for data in transit. Access to sensitive broadcaster information is restricted to authorized personnel only. While we strive for absolute security, no system is 100% impenetrable; we encourage users to use strong passwords and avoid sharing account credentials.</p>
+            </div>
+
+            <div id="retention" class="policy-section">
+                <h2>7. Data Retention</h2>
+                <p>We retain your personal information as long as your account is active. If you choose to delete your account, your profile data will be purged from our active databases within 30 days, except where retention is required by law (e.g., financial transaction records).</p>
+            </div>
+
+            <div id="rights" class="policy-section">
+                <h2>8. Your Rights</h2>
+                <p>You have full control over your data:</p>
+                <ul>
+                    <li><strong>Access & Correction:</strong> You can update your profile information anytime in the App Settings.</li>
+                    <li><strong>Data Erasure:</strong> You can request account deletion via the "Delete Account" button in the app or by emailing our support team.</li>
+                    <li><strong>Opt-Out:</strong> You can manage notifications and data sharing preferences within your device settings.</li>
+                </ul>
+            </div>
+
+            <div id="contact" class="policy-section">
+                <h2>9. Contact Us</h2>
+                <p>For any privacy-related queries or to exercise your data rights, please contact our Data Protection Officer:</p>
+                <p><strong>TalkTap Privacy Team</strong><br>
+                Email: <a href="mailto:support@talktap.live" style="color:#6366f1; text-decoration:none; font-weight:600;">support@talktap.live</a><br>
+                Address: D.No: 7A/8/40, Edugorila Center, Eluru, Andhra Pradesh, India - 534001.</p>
+            </div>
+
+        </div>
+    </div>
+
+      <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+    <a href="index.html" style="text-decoration: none; display: inline-block;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+            <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+        </div>
+    </a>
+    
+    <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
+    <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+</div>
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+
+</body>
+</html>

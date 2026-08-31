@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found - TalkTap</title>
+    
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="TalkTap" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8f9fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        
+        /* --- HEADER STYLES --- */
+        header { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .app-logo { height: 45px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #007bff; letter-spacing: -0.5px; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+
+        .mobile-actions { display: none; align-items: center; gap: 15px; }
+        
+        .btn-login {
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover { background-color: #007bff; color: #ffffff; }
+        
+        .menu-toggle { font-size: 24px; color: #333; cursor: pointer; display: none; }
+
+        .btn-download {
+            background-color: #007bff;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            text-decoration: none;
+        }
+        .btn-download:hover { background-color: #0056b3; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5); }
+
+        /* --- 404 ERROR / MAINTENANCE SECTION --- */
+        .error-section {
+            flex: 1; /* Pushes footer to bottom */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background-color: #f8f9fa;
+        }
+        .error-content {
+            background: #ffffff;
+            max-width: 550px;
+            width: 100%;
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 5px solid #ffb400; /* Maintenance Color */
+        }
+        .error-icon {
+            font-size: 70px;
+            color: #ffb400;
+            margin-bottom: 20px;
+        }
+        .error-content h1 {
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .error-content p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn-home {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-home:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* --- FOOTER STYLES --- */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1); 
+                padding: 20px 0; 
+                gap: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-actions { display: flex; }
+            .menu-toggle { display: block; }
+            .desktop-btn { display: none; }
+            
+            .error-content h1 { font-size: 1.8rem; }
+            .error-content p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap Logo" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            
+            <div class="mobile-actions">
+                <a href="login.html" class="btn-login">Login</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+
+            <ul class="nav-links" id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="connect.html">Connect</a></li>
+                <li class="desktop-btn"><a href="login.html" class="btn-login">Login</a></li>
+                <li class="desktop-btn">
+                    <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                        <i class="fa-solid fa-download"></i> Download App
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="error-section">
+        <div class="error-content">
+            <i class="fa-solid fa-person-digging error-icon"></i>
+            <h1>404 - Under Maintenance</h1>
+            <p>Oops! The page you are looking for is currently undergoing maintenance or could not be found. We are working hard to improve your experience.</p>
+            <a href="index.html" class="btn-home">
+                <i class="fa-solid fa-house"></i> Go Back to Home
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="index.html" style="text-decoration: none; display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+                        <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+                    </div>
+                </a>
+                
+                <p style="color: #888; font-size: 14px; margin-top: 10px; margin-bottom: 20px;">The ultimate destination for live audio streaming and professional community building.</p>
+                
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
+                <br>
+                <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 15px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+            </div>
+            
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                    <a href="child_safety.html">Child Safety</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

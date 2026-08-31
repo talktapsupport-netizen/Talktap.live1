@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Safety Standards - TalkTap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8f9fa; color: #1a202c; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        
+        /* --- HEADER STYLES --- */
+        header { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .app-logo { height: 45px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #007bff; letter-spacing: -0.5px; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; padding-bottom: 5px; }
+        .nav-links a:hover { color: #007bff; }
+        .active-link { color: #007bff !important; border-bottom: 2px solid #007bff; }
+
+        .mobile-actions { display: none; align-items: center; gap: 15px; }
+        
+        .btn-login {
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover { background-color: #007bff; color: #ffffff; }
+        
+        .menu-toggle { font-size: 24px; color: #333; cursor: pointer; display: none; }
+
+        .btn-download {
+            background-color: #007bff;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            text-decoration: none;
+        }
+        .btn-download:hover { background-color: #0056b3; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5); }
+
+        /* --- HERO SECTION --- */
+        .safety-hero {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+        .safety-hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
+        .safety-hero p { font-size: 1.2rem; max-width: 750px; margin: 0 auto; line-height: 1.7; opacity: 0.95; }
+
+        /* --- FEATURES SECTION --- */
+        .section-container { max-width: 1140px; margin: 0 auto; padding: 80px 20px; text-align: center; }
+        .section-title { color: #1f2937; font-size: 2.5rem; font-weight: 800; margin-bottom: 12px; }
+        .section-subtitle { color: #6b7280; font-size: 1.1rem; max-width: 650px; margin: 0 auto 55px auto; line-height: 1.6; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .feature-card { background: white; padding: 45px 35px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); transition: all 0.4s ease; border: 1px solid #f1f5f9; text-align: left; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 123, 255, 0.1); border-color: #007bff; }
+        .icon-box { font-size: 35px; color: #007bff; background-color: #eef2ff; width: 70px; height: 70px; border-radius: 18px; display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 15px; color: #111827; }
+        .feature-card p { color: #4b5563; line-height: 1.6; font-size: 0.95rem; }
+
+        /* --- POLICY BOX --- */
+        .ban-container { background: #fff; border-left: 6px solid #ef4444; border-radius: 16px; padding: 40px; margin: 60px 0; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .ban-header { display: flex; align-items: center; gap: 15px; color: #dc2626; font-size: 1.6rem; font-weight: 800; margin-bottom: 20px; }
+        .ban-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; list-style: none; margin-top: 25px; }
+        .ban-list li { display: flex; align-items: center; gap: 12px; color: #374151; font-weight: 600; font-size: 1rem; padding: 10px; background: #fef2f2; border-radius: 8px; }
+        .ban-list li i { color: #ef4444; font-size: 18px; }
+
+        /* --- FAQ SECTION --- */
+        .faq-section { background-color: #ffffff; padding: 80px 0; }
+        .faq-wrapper { max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: left; }
+        .faq-item { background: #f9fafb; margin-bottom: 15px; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; transition: all 0.3s; }
+        .faq-question { padding: 22px 25px; font-weight: 700; color: #1f2937; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; }
+        .faq-answer { padding: 0 25px 22px 25px; color: #4b5563; line-height: 1.7; display: none; border-top: 1px solid #f1f5f9; font-size: 0.95rem; }
+        
+        .faq-item.active { border-color: #007bff; background: #fff; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.08); }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .fa-chevron-down { transform: rotate(180deg); color: #007bff; }
+        .fa-chevron-down { transition: 0.3s; font-size: 14px; color: #9ca3af; }
+
+        /* --- FOOTER STYLES --- */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1); 
+                padding: 20px 0; 
+                gap: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-actions { display: flex; }
+            .menu-toggle { display: block; }
+            .desktop-btn { display: none; }
+            
+            .safety-hero { padding: 60px 20px; clip-path: none; }
+            .safety-hero h1 { font-size: 2.2rem; }
+            .safety-hero p { font-size: 1.1rem; }
+            
+            .section-title { font-size: 2rem; }
+            .ban-container { padding: 25px; }
+            .ban-header { font-size: 1.3rem; flex-direction: column; text-align: center; }
+            .ban-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap Logo" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            
+            <div class="mobile-actions">
+                <a href="login.html" class="btn-login">Login</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+
+            <ul class="nav-links" id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="child_safety.html" class="active-link">Child Safety</a></li>
+                <li><a href="connect.html">Connect</a></li>
+                <li class="desktop-btn"><a href="login.html" class="btn-login">Login</a></li>
+                <li class="desktop-btn">
+                    <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                        <i class="fa-solid fa-download"></i> Download App
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="safety-hero">
+        <h1>Child Safety Standards</h1>
+        <p>TalkTap is strictly a platform for adults (18+). We are deeply committed to protecting minors and maintain a strict zero-tolerance policy against any form of child endangerment or exploitation.</p>
+    </div>
+
+    <div class="section-container">
+        <h2 class="section-title">Our Protective Measures</h2>
+        <p class="section-subtitle">We employ advanced technology and strict community guidelines to ensure our platform remains safe and inaccessible to minors.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+                <h3>Strict Age Restrictions</h3>
+                <p>TalkTap is strictly restricted to users aged 18 and older. We use age-gating mechanisms during registration to prevent underage users from accessing the platform.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-magnifying-glass-shield"></i></div>
+                <h3>Proactive AI Monitoring</h3>
+                <p>Our intelligent AI systems constantly scan profiles, audio streams, and text chats to detect and flag any suspicious activity related to minors.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-building-shield"></i></div>
+                <h3>Law Enforcement Cooperation</h3>
+                <p>We work closely with organizations like NCMEC and local law enforcement agencies to immediately report and investigate any potential threats to children.</p>
+            </div>
+        </div>
+
+        <div class="ban-container">
+            <div class="ban-header">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Zero-Tolerance Child Endangerment Policy
+            </div>
+            <p style="margin-bottom: 15px; color: #4b5563; font-size: 1.1rem;">In compliance with global child protection laws (including COPPA), TalkTap immediately terminates accounts and reports violators to the authorities. We strictly prohibit the following:</p>
+            <ul class="ban-list">
+                <li><i class="fa-solid fa-ban"></i> Users under the age of 18</li>
+                <li><i class="fa-solid fa-ban"></i> Child Sexual Abuse Material (CSAM)</li>
+                <li><i class="fa-solid fa-ban"></i> Grooming or Predatory Behavior</li>
+                <li><i class="fa-solid fa-ban"></i> Sharing Minors' Personal Information</li>
+                <li><i class="fa-solid fa-ban"></i> Endangering or Exploiting Minors</li>
+                <li><i class="fa-solid fa-ban"></i> Falsifying Age during Registration</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="faq-section">
+        <div class="section-container" style="padding-top: 0;">
+            <h2 class="section-title">Child Safety FAQ</h2>
+            <p class="section-subtitle">Common questions regarding age restrictions and reporting mechanisms on TalkTap.</p>
+            
+            <div class="faq-wrapper">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">What is the minimum age to use TalkTap? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">You must be at least 18 years old to create an account, broadcast, or interact on TalkTap. We do not allow teenagers or children on our platform.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">How does TalkTap verify user age? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">During onboarding, users must confirm they are over 18. Additionally, our moderation team and AI systems monitor accounts. If an account is suspected to belong to a minor, it will be immediately suspended pending verification.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">How do I report a child safety concern? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">You can report any suspicious activity using the in-app "Report" button on a user's profile or live stream. For urgent child safety issues, you can directly email our Trust & Safety team at <b>safety@talktap.com</b>. We prioritize these reports immediately.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">Do you report violators to the police? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-answer">Yes, absolutely. We have a legal and moral obligation to report any instances involving the exploitation of minors directly to organizations like the National Center for Missing & Exploited Children (NCMEC) and relevant local law enforcement.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="index.html" style="text-decoration: none; display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+                        <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+                    </div>
+                </a>
+                
+                <p style="color: #888; font-size: 14px; margin-top: 10px; margin-bottom: 20px;">The ultimate destination for live audio streaming and professional community building.</p>
+                
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
+                <br>
+                <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 15px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+            </div>
+            
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                    <a href="child_safety.html">Child Safety</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // FAQ Toggle functionality
+        function toggleFaq(element) {
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>

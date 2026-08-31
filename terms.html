@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - TalkTap Live Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Header */
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #6366f1; }
+        .app-logo { height: 42px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #6366f1; letter-spacing: -1px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .nav-links a:hover { color: #6366f1; }
+
+        /* --- HERO SECTION --- */
+        .policy-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .policy-hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
+        .last-updated { font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* --- LEGAL CONTENT LAYOUT --- */
+        .legal-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .sidebar-title { font-weight: 800; margin-bottom: 20px; display: block; color: #0f172a; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 12px; }
+        .sidebar a { text-decoration: none; color: #64748b; font-size: 0.95rem; font-weight: 500; display: block; transition: all 0.3s; }
+        .sidebar a:hover { color: #6366f1; transform: translateX(5px); }
+
+        /* Main Content Area */
+        .policy-content {
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .policy-section { margin-bottom: 50px; scroll-margin-top: 120px; }
+        .policy-section h2 { color: #0f172a; font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .policy-section p { line-height: 1.8; color: #475569; margin-bottom: 20px; font-size: 1.05rem; text-align: justify; }
+        .policy-section ul { margin-left: 20px; margin-bottom: 20px; color: #475569; }
+        .policy-section li { margin-bottom: 12px; line-height: 1.7; font-size: 1rem; }
+        
+        .highlight-red { border-left: 4px solid #ef4444; background: #fef2f2; padding: 20px; border-radius: 8px; color: #991b1b; font-weight: 600; margin: 20px 0; }
+
+       /* Footer */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+        @media (max-width: 992px) {
+            .legal-container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .policy-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="connect.html">Creator Center</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="policy-hero">
+        <h1>Terms of Service</h1>
+        <span class="last-updated">Last Updated: December 28, 2025</span>
+    </div>
+
+    <div class="legal-container">
+        
+        <nav class="sidebar">
+            <span class="sidebar-title">Table of Contents</span>
+            <ul>
+                <li><a href="#acceptance">1. Acceptance of Terms</a></li>
+                <li><a href="#eligibility">2. Eligibility</a></li>
+                <li><a href="#broadcasting">3. Broadcasting & Rewards</a></li>
+                <li><a href="#digital-goods">4. Coins & Virtual Gifts</a></li>
+                <li><a href="#conduct">5. Prohibited Conduct</a></li>
+                <li><a href="#termination">6. Termination of Access</a></li>
+                <li><a href="#disclaimers">7. Disclaimers</a></li>
+                <li><a href="#contact">8. Legal Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="policy-content">
+            
+            <div id="acceptance" class="policy-section">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing or using TalkTap ("Service"), you agree to be bound by these Terms & Conditions. TalkTap is a professional live streaming community operated by Ramesh Chilaka. If you do not agree to these terms, you must immediately cease all use of the Service.</p>
+                <p>We reserve the right to modify these Terms at our discretion. Continued use of the platform after updates constitutes acceptance of the revised Terms.</p>
+            </div>
+
+            <div id="eligibility" class="policy-section">
+                <h2>2. Eligibility & Accounts</h2>
+                <p>You must be at least <strong>18 years of age</strong> to create an account or use any streaming features on TalkTap. By registering, you represent that you meet this age requirement.</p>
+                <ul>
+                    <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+                    <li>Any activity occurring under your account is your sole responsibility.</li>
+                    <li>We reserve the right to refuse service or cancel accounts that provide false information.</li>
+                </ul>
+            </div>
+
+            <div id="broadcasting" class="policy-section">
+                <h2>3. Broadcasting & Creator Rewards</h2>
+                <p>Broadcasters (Creators) may use the platform to showcase talent, host discussions, or stream educational content. By broadcasting on TalkTap:</p>
+                <ul>
+                    <li>You grant TalkTap a worldwide, royalty-free license to host, display, and distribute your live content.</li>
+                    <li>Creators may be eligible for rewards based on virtual gifts received. These rewards are subject to our internal audit and payout policies.</li>
+                    <li>TalkTap reserves the right to withhold rewards if fraudulent activity or policy violations are detected.</li>
+                </ul>
+            </div>
+
+            <div id="digital-goods" class="policy-section">
+                <h2>4. Coins & Virtual Gifts</h2>
+                <p>Users may purchase "TalkTap Coins" to send "Virtual Gifts" to broadcasters. These are digital assets with no "real-world" monetary value outside the platform.</p>
+                <ul>
+                    <li>Purchases are <strong>non-refundable</strong> except as specified in our <a href="refund.html" style="color:#6366f1;">Refund Policy</a>.</li>
+                    <li>Coins cannot be traded or sold between users outside of the official gifting system.</li>
+                    <li>We reserve the right to manage, regulate, and modify the value of digital assets at any time.</li>
+                </ul>
+            </div>
+
+            <div id="conduct" class="policy-section">
+                <h2>5. Prohibited Conduct</h2>
+                <p>TalkTap is a professional talent-discovery community. The following activities are <strong>STRICTLY PROHIBITED</strong> and will result in an immediate permanent ban:</p>
+                <div class="highlight-red">
+                    TalkTap is NOT a dating or hookup platform. Using the Service to seek romantic partners, solicit adult services, or share provocative content is strictly forbidden.
+                </div>
+                <ul>
+                    <li>Streaming sexually explicit, obscene, or pornographic material.</li>
+                    <li>Harassment, bullying, or hate speech targeting any individual or group.</li>
+                    <li>Impersonating other creators or platform officials.</li>
+                    <li>Using the platform for illegal scams, fraud, or promoting prohibited substances.</li>
+                </ul>
+            </div>
+
+            <div id="termination" class="policy-section">
+                <h2>6. Termination of Access</h2>
+                <p>We may suspend or terminate your access to TalkTap at any time, without prior notice, if you violate these Terms or our <a href="community.html" style="color:#6366f1;">Community Guidelines</a>. Upon termination, your right to use the Service will cease immediately, and any remaining digital assets (Coins/Gifts) will be forfeited.</p>
+            </div>
+
+            <div id="disclaimers" class="policy-section">
+                <h2>7. Limitation of Liability</h2>
+                <p>TalkTap is provided on an "AS IS" and "AS AVAILABLE" basis. We do not guarantee that the Service will be uninterrupted or error-free. To the maximum extent permitted by law, Ramesh Chilaka and TalkTap shall not be liable for any indirect, incidental, or consequential damages arising from your use of the platform.</p>
+            </div>
+
+            <div id="contact" class="policy-section">
+                <h2>8. Legal Contact</h2>
+                <p>For any legal inquiries regarding these Terms, please contact:</p>
+                <p><strong>TalkTap Legal Team</strong><br>
+                Email: <a href="mailto:support@talktap.live" style="color:#6366f1; text-decoration:none; font-weight:600;">support@talktap.live</a><br>
+                Address: D.No: 7A/8/40, Edugorila Center, Eluru, Andhra Pradesh, India - 534001.</p>
+            </div>
+
+        </div>
+    </div>
+
+     <footer>
+        <div class="footer-container">
+        <div class="footer-left">
+    <a href="index.html" style="text-decoration: none; display: inline-block;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+            <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+        </div>
+    </a>
+    
+    <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
+    <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+</div>
+             <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                     <a href="child_safety.html">Child Safety</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>

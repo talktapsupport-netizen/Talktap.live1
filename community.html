@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Guidelines - TalkTap Live Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; color: #1a202c; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        
+        /* --- HEADER STYLES --- */
+        header { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .app-logo { height: 45px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #007bff; letter-spacing: -0.5px; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+        .active-link { color: #007bff !important; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
+
+        /* Mobile specific header actions */
+        .mobile-actions { display: none; align-items: center; gap: 15px; }
+        
+        .btn-login {
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover { background-color: #007bff; color: #ffffff; }
+        
+        .menu-toggle { font-size: 24px; color: #333; cursor: pointer; display: none; }
+
+        .btn-download {
+            background-color: #007bff;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            text-decoration: none;
+        }
+        .btn-download:hover { background-color: #0056b3; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5); }
+
+        /* --- HERO SECTION --- */
+        .guidelines-hero {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .guidelines-hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; }
+        .guidelines-hero p { font-size: 1.2rem; max-width: 750px; margin: 0 auto; opacity: 0.95; line-height: 1.6; }
+
+        /* --- CONTENT CONTAINER --- */
+        .content-container { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+
+        /* --- PRINCIPLES (Live Streaming Focused) --- */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+        .principle-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid #edf2f7;
+            transition: 0.3s;
+        }
+        .principle-card:hover { transform: translateY(-5px); border-color: #007bff; }
+        .p-icon { font-size: 45px; color: #007bff; margin-bottom: 25px; display: block; }
+        .principle-card h3 { margin-bottom: 15px; font-size: 1.4rem; color: #111; }
+        .principle-card p { color: #64748b; font-size: 1rem; line-height: 1.6; }
+
+        /* --- THE RULES --- */
+        .rules-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; font-weight: 800; color: #1e293b; }
+        .rules-split { display: flex; gap: 40px; flex-wrap: wrap; }
+        
+        .rules-col {
+            flex: 1;
+            min-width: 320px;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        }
+        .do-header { border-bottom: 4px solid #10b981; padding-bottom: 20px; margin-bottom: 30px; }
+        .do-header h3 { color: #047857; font-size: 1.6rem; display: flex; align-items: center; gap: 12px; }
+        
+        .dont-header { border-bottom: 4px solid #ef4444; padding-bottom: 20px; margin-bottom: 30px; }
+        .dont-header h3 { color: #b91c1c; font-size: 1.6rem; display: flex; align-items: center; gap: 12px; }
+
+        .rules-list { list-style: none; }
+        .rules-list li { margin-bottom: 30px; }
+        .rules-list strong { display: block; font-size: 1.2rem; margin-bottom: 8px; color: #1e293b; }
+        .rules-list p { color: #475569; font-size: 1rem; line-height: 1.6; }
+
+        /* --- ENFORCEMENT SECTION --- */
+        .report-section {
+            background: #1e293b;
+            color: white;
+            border-radius: 25px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .report-section h2 { font-size: 2.2rem; margin-bottom: 20px; }
+        .report-section p { max-width: 700px; margin: 0 auto 35px auto; color: #cbd5e1; font-size: 1.1rem; }
+        .report-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .report-btn:hover { background-color: #0056b3; transform: scale(1.05); }
+
+        /* --- FOOTER STYLES --- */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1); 
+                padding: 20px 0; 
+                gap: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .mobile-actions { display: flex; }
+            .menu-toggle { display: block; }
+            .desktop-btn { display: none; }
+            
+            .guidelines-hero { padding: 60px 20px; }
+            .guidelines-hero h1 { font-size: 2.5rem; }
+            
+            .rules-title { font-size: 2rem; }
+            .rules-split { flex-direction: column; }
+            .rules-col { padding: 25px; }
+            
+            .report-section { padding: 40px 20px; }
+            .report-section h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap Logo" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            
+            <div class="mobile-actions">
+                <a href="login.html" class="btn-login">Login</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+
+            <ul class="nav-links" id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="community.html" class="active-link">Community Guidelines</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li class="desktop-btn"><a href="login.html" class="btn-login">Login</a></li>
+                <li class="desktop-btn">
+                    <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                        <i class="fa-solid fa-download"></i> Download App
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="guidelines-hero">
+        <h1>Broadcaster Guidelines</h1>
+        <p>TalkTap is built for creators, streamers, and talent discovery. These guidelines ensure a professional environment for both broadcasters and viewers.</p>
+    </div>
+
+    <div class="content-container">
+
+        <div class="principles-grid">
+            <div class="principle-card">
+                <i class="fa-solid fa-microphone-lines p-icon"></i>
+                <h3>Professionalism</h3>
+                <p>Treat your stream as a professional stage. Engagement should be respectful, creative, and talent-focused.</p>
+            </div>
+            <div class="principle-card">
+                <i class="fa-solid fa-user-shield p-icon"></i>
+                <h3>Broadcaster Security</h3>
+                <p>Maintain clear boundaries between creators and fans. Never solicit or share private personal information.</p>
+            </div>
+            <div class="principle-card">
+                <i class="fa-solid fa-gem p-icon"></i>
+                <h3>Creative Integrity</h3>
+                <p>Be original. Showcase your own skills, music, and art. Impersonation and piracy are strictly prohibited.</p>
+            </div>
+        </div>
+
+        <h2 class="rules-title">Streaming Standards</h2>
+        
+        <div class="rules-split">
+            
+            <div class="rules-col">
+                <div class="do-header">
+                    <h3><i class="fa-solid fa-circle-check"></i> Creator Standards</h3>
+                </div>
+                <ul class="rules-list">
+                    <li>
+                        <strong>Talent Showcase</strong>
+                        <p>Focus your live sessions on singing, educational content, gaming, podcasts, or community discussions.</p>
+                    </li>
+                    <li>
+                        <strong>Moderation Power</strong>
+                        <p>Use your host controls to keep your chat clean. Ban disruptive viewers who deviate from professional behavior.</p>
+                    </li>
+                    <li>
+                        <strong>Transparent Rewards</strong>
+                        <p>Encourage support through virtual gifts based on your talent and performance quality.</p>
+                    </li>
+                    <li>
+                        <strong>Quality Audio/Video</strong>
+                        <p>Ensure your streams meet our platform’s quality standards for a better user experience.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="rules-col">
+                <div class="dont-header">
+                    <h3><i class="fa-solid fa-circle-xmark"></i> Strictly Prohibited</h3>
+                </div>
+                <ul class="rules-list">
+                    <li>
+                        <strong>Dating & Hookup Content</strong>
+                        <p>TalkTap is <b>NOT</b> a dating app. Seeking romantic partners or using streams for hookups is a banable offense.</p>
+                    </li>
+                    <li>
+                        <strong>Provocative Attire/Behavior</strong>
+                        <p>Adult content, explicit language, or provocative behavior is strictly banned to protect our community standards.</p>
+                    </li>
+                    <li>
+                        <strong>Solicitation & Scams</strong>
+                        <p>Do not use streams to sell illegal products, promote gambling, or solicit money outside of the gifting system.</p>
+                    </li>
+                    <li>
+                        <strong>Hate Speech & Toxicity</strong>
+                        <p>Discrimination against any group or individual will result in an immediate and permanent platform ban.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h2>Policy Enforcement</h2>
+            <p>Our AI-moderation and human safety teams review streams 24/7. Violations of the Broadcaster Guidelines lead to immediate termination of the live stream and permanent account suspension without warning.</p>
+            <a href="contact.html" class="report-btn">Report a Violation</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="index.html" style="text-decoration: none; display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+                        <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+                    </div>
+                </a>
+                
+                <p style="color: #888; font-size: 14px; margin-top: 10px; margin-bottom: 20px;">The ultimate destination for live audio streaming and professional community building.</p>
+                
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
+                <br>
+                <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 15px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+            </div>
+            
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                    <a href="child_safety.html">Child Safety</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2026 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

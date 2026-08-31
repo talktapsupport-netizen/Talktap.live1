@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund & Cancellation Policy - TalkTap Live Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="TalkTap" />
+<link rel="manifest" href="/site.webmanifest" />
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* Header */
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #6366f1; }
+        .app-logo { height: 42px; width: auto; border-radius: 8px; }
+        .app-name { font-size: 26px; font-weight: 800; color: #6366f1; letter-spacing: -1px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; }
+        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .nav-links a:hover { color: #6366f1; }
+
+        /* --- HERO SECTION --- */
+        .policy-hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .policy-hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
+        .last-updated { font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* --- LEGAL CONTENT LAYOUT --- */
+        .legal-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+        }
+        .sidebar-title { font-weight: 800; margin-bottom: 20px; display: block; color: #0f172a; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 12px; }
+        .sidebar a { text-decoration: none; color: #64748b; font-size: 0.95rem; font-weight: 500; display: block; transition: all 0.3s; }
+        .sidebar a:hover { color: #6366f1; transform: translateX(5px); }
+
+        /* Main Content */
+        .policy-content {
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+        }
+        .policy-section { margin-bottom: 50px; scroll-margin-top: 120px; }
+        .policy-section h2 { color: #0f172a; font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.5px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        .policy-section p { line-height: 1.8; color: #475569; margin-bottom: 20px; font-size: 1.05rem; text-align: justify; }
+        .policy-section ul { margin-left: 20px; margin-bottom: 20px; color: #475569; }
+        .policy-section li { margin-bottom: 12px; line-height: 1.7; font-size: 1rem; }
+        
+        .highlight-box { background-color: #f0f4ff; border-left: 5px solid #6366f1; padding: 25px; margin: 25px 0; border-radius: 12px; }
+        .highlight-box strong { color: #1e1b4b; display: block; margin-bottom: 5px; font-size: 1.1rem; }
+
+        /* Footer */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        @media (max-width: 992px) {
+            .legal-container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .policy-content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="logo.jpg" alt="TalkTap" class="app-logo"> 
+                <span class="app-name">TalkTap</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="safety.html">Safety Center</a></li>
+                <li><a href="connect.html">Creator Center</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="policy-hero">
+        <h1>Refund & Cancellation</h1>
+        <span class="last-updated">Last Updated: December 28, 2025</span>
+    </div>
+
+    <div class="legal-container">
+        
+        <nav class="sidebar">
+            <span class="sidebar-title">Policy Guide</span>
+            <ul>
+                <li><a href="#general">1. Digital Goods Policy</a></li>
+                <li><a href="#cancellations">2. Transaction Cancellations</a></li>
+                <li><a href="#refund-eligibility">3. Refund Eligibility</a></li>
+                <li><a href="#timeline">4. Refund Timeline</a></li>
+                <li><a href="#violations">5. Policy Violations</a></li>
+                <li><a href="#contact">6. Payment Support</a></li>
+            </ul>
+        </nav>
+
+        <div class="policy-content">
+            
+            <div id="general" class="policy-section">
+                <h2>1. Digital Goods Policy</h2>
+                <p>TalkTap is a live streaming platform where users can purchase digital assets, including <strong>TalkTap Coins</strong> and <strong>Virtual Gifts</strong>, to support their favorite broadcasters. As these are intangible digital goods that are credited instantly to your account, all successful transactions are final.</p>
+                <p>By making a purchase on the TalkTap platform, you acknowledge that you are gaining immediate access to digital content and thus waive any statutory right of withdrawal or "cooling-off" period.</p>
+            </div>
+
+            <div id="cancellations" class="policy-section">
+                <h2>2. Transaction Cancellations</h2>
+                <p>Once a user confirms a purchase for Coins or Premium features, the delivery is automated and instantaneous. Therefore, we do not support the cancellation of successful transactions. We urge users to verify the amount and the selected package before proceeding with the payment.</p>
+            </div>
+
+            <div id="refund-eligibility" class="policy-section">
+                <h2>3. Refund Eligibility</h2>
+                <p>TalkTap maintains a strict <strong>No-Refund</strong> policy. However, we may consider refund requests under specific technical scenarios as determined by our audit team:</p>
+                <ul>
+                    <li><strong>Failed Crediting:</strong> If the payment was successful (amount debited from your bank/UPI) but the Coins were not added to your TalkTap wallet due to a technical glitch.</li>
+                    <li><strong>Double Charge:</strong> If you were charged twice for the same transaction ID due to a system lag or payment gateway error.</li>
+                    <li><strong>Unauthorized Fraudulent Transaction:</strong> In cases of verified unauthorized usage of your payment method, subject to investigation by our security team.</li>
+                </ul>
+            </div>
+
+            <div id="timeline" class="policy-section">
+                <div class="highlight-box">
+                    <strong>Refund Timeline & Process</strong>
+                    If a refund is approved by our technical team, the amount will be reversed to your original payment source (UPI, Debit/Credit Card, or Wallet) within <strong>3 to 7 business days</strong>.
+                </div>
+                <p>Please note that the time taken for the amount to reflect in your account may vary depending on your bank's processing cycles.</p>
+            </div>
+
+            <div id="violations" class="policy-section">
+                <h2>4. Account Bans & Violations</h2>
+                <p>TalkTap is a professional broadcasting community. If a user’s account is <strong>permanently banned or suspended</strong> due to a violation of our <a href="community.html" style="color:#6366f1;">Community Guidelines</a> (e.g., streaming inappropriate content, harassment, or fraud), any remaining balance of Coins or Gifts in the wallet will be forfeited.</p>
+                <p>No refunds or compensation will be provided for accounts terminated due to policy violations.</p>
+            </div>
+
+            <div id="contact" class="policy-section">
+                <h2>5. Payment Support</h2>
+                <p>If you have faced a transaction failure or have questions regarding a payment, please reach out to our dedicated Finance Support Desk:</p>
+                <p><strong>TalkTap Billing Support</strong><br>
+                Email: <a href="mailto:billing@talktap.live" style="color:#6366f1; text-decoration:none; font-weight:600;">billing@talktap.live</a><br>
+                Address: D.No: 7A/8/40, Edugorila Center, Eluru, Andhra Pradesh, India - 534001.</p>
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 20px;">*Please include your Transaction ID and a screenshot of the payment confirmation for faster resolution.</p>
+            </div>
+
+        </div>
+    </div>
+
+   <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+    <a href="index.html" style="text-decoration: none; display: inline-block;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+            <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+        </div>
+    </a>
+    
+    <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
+    <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+</div>
+            <div class="footer-links">
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
+                    <a href="pricing.html">Pricing Plans</a><br><br>
+                    <a href="safety.html">Safety Center</a><br><br>
+                    <a href="community.html">Community Guidelines</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
+                    <a href="privacy.html">Privacy Policies</a><br><br>
+                    <a href="terms.html">Terms & Conditions</a><br><br>
+                    <a href="refund.html">Refund Policy</a>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
+                    <a href="index.html#about">About Our Vision</a><br><br>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">&copy; 2025 TalkTap Live Streaming. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>
