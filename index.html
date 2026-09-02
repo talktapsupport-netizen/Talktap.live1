@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +9,60 @@
     <style>
         /* --- GLOBAL STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #f8f9fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: #f8f9fa; color: #333; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
         /* Header */
-        header { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        
         .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .app-logo { height: 45px; width: auto; border-radius: 8px; }
         .app-name { font-size: 26px; font-weight: 800; color: #007bff; letter-spacing: -0.5px; }
-        .nav-links { list-style: none; display: flex; gap: 25px; }
+        
+        /* Desktop Navigation */
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
         .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
         .nav-links a:hover { color: #007bff; }
 
-        /* Footer */
-        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
-        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
-        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
-        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
-        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
-        .footer-links a:hover { color: #007bff; padding-left: 5px; }
-        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        /* Login & Menu Icons (Mobile Specific) */
+        .mobile-actions { display: none; align-items: center; gap: 15px; }
         
-        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+        .btn-login {
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        
+        .menu-toggle { font-size: 24px; color: #333; cursor: pointer; display: none; }
+
+        /* Download Button Style */
+        .btn-download {
+            background-color: #007bff;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            text-decoration: none;
+        }
+        .btn-download:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+        }
 
         /* --- 1. SLIDING HERO SECTION --- */
         .slider-container { position: relative; width: 100%; height: 550px; overflow: hidden; background-color: #0056b3; }
@@ -46,8 +76,32 @@
         .btn-main { padding: 15px 40px; background: #007bff; color: white; text-decoration: none; border-radius: 30px; font-weight: 700; transition: 0.3s; border: 2px solid transparent; }
         .btn-main:hover { background: transparent; border-color: white; }
 
+        /* --- 🔥 NEW: DOWNLOAD BOX UNDER SLIDER 🔥 --- */
+        .download-box-section {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+        .download-box {
+            background: #ffffff;
+            max-width: 700px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #eef2ff;
+        }
+        .download-box h2 { color: #1a1a1a; font-size: 24px; margin-bottom: 15px; font-weight: 800; }
+        .download-box p { color: #666; font-size: 16px; margin-bottom: 25px; line-height: 1.5; }
+        .download-box .btn-download { font-size: 18px; padding: 12px 30px; }
+
         /* --- 2. SPECIAL FEATURES --- */
-        .special-section { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+        .special-section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
         .section-heading { text-align: center; font-size: 2.8rem; color: #1a1a1a; margin-bottom: 60px; font-weight: 800; }
         .special-layout { display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
 
@@ -65,140 +119,86 @@
 
         .illustration-area { flex: 1; min-width: 320px; text-align: center; }
         .illustration-img { max-width: 100%; height: auto; border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
- /* STATS SECTION */
+        
+        /* STATS SECTION */
+        .stats-section{ padding:80px 20px; background:#ffffff; }
+        .stats-scroll{ display:flex; gap:25px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:10px; }
+        .stat-box{ min-width:260px; background:#f5f7ff; border-radius:25px; padding:35px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+        .stat-box h2{ font-size:38px; color:#007bff; font-weight:800; }
+        .stat-box p{ margin-top:8px; font-size:16px; color:#555; }
+        .stat-icon{ width:60px; margin-top:15px; animation:floatIcon 3s ease-in-out infinite; }
 
-.stats-section{
-padding:80px 20px;
-background:#ffffff;
-}
+        @keyframes floatIcon{
+        0%{transform:translateY(0)}
+        50%{transform:translateY(-10px)}
+        100%{transform:translateY(0)}
+        }
 
-/* Mobile default */
-.stats-scroll{
-display:flex;
-gap:25px;
-overflow-x:auto;
-scroll-behavior:smooth;
-padding-bottom:10px;
-}
+        @media (min-width: 900px){
+            .stats-scroll{ overflow:visible; justify-content:center; }
+            .stat-box{ min-width:320px; }
+        }
 
-.stat-box{
-min-width:260px;
-background:#f5f7ff;
-border-radius:25px;
-padding:35px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
+        /* REVIEWS */
+        .review-scroll{ display:flex; gap:25px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:10px; }
+        .review-card{ width:280px; height:220px; background:#ffffff; border-radius:20px; padding:18px; box-shadow:0 8px 25px rgba(0,0,0,0.08); flex-shrink:0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+        .review-name{ font-size:18px; font-weight:700; margin-bottom:5px; }
+        .stars{ color:#ffb400; margin-bottom:10px; }
+        .review-text{ font-size:14px; color:#444; overflow-y:auto; height:120px; padding-right:6px; text-align:left; }
 
-.stat-box h2{
-font-size:38px;
-color:#007bff;
-font-weight:800;
-}
-
-.stat-box p{
-margin-top:8px;
-font-size:16px;
-color:#555;
-}
-
-.stat-icon{
-width:60px;
-margin-top:15px;
-animation:floatIcon 3s ease-in-out infinite;
-}
-
-@keyframes floatIcon{
-0%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-100%{transform:translateY(0)}
-}
-
-/* Desktop layout */
-@media (min-width: 900px){
-
-.stats-scroll{
-overflow:visible;
-justify-content:center;
-}
-
-.stat-box{
-min-width:320px;
-}
-
-}
-
-
-/* REVIEWS */
-.review-scroll{
-display:flex;
-gap:25px;
-overflow-x:auto;
-scroll-behavior:smooth;
-padding-bottom:10px;
-}
-
-.review-card{
-width:280px;
-height:220px;
-background:#ffffff;
-border-radius:20px;
-padding:18px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-flex-shrink:0;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
-}
-
-.review-name{
-font-size:18px;
-font-weight:700;
-margin-bottom:5px;
-}
-
-.stars{
-color:#ffb400;
-margin-bottom:10px;
-}
-
-.review-text{
-font-size:14px;
-color:#444;
-overflow-y:auto;
-height:120px;
-padding-right:6px;
-text-align:left;
-}
-
-/* scroll smooth */
-
-.review-text::-webkit-scrollbar{
-width:4px;
-}
-
-.review-text::-webkit-scrollbar-thumb{
-background:#ccc;
-border-radius:5px;
-}
+        .review-text::-webkit-scrollbar{ width:4px; }
+        .review-text::-webkit-scrollbar-thumb{ background:#ccc; border-radius:5px; }
+        
         /* --- ABOUT US --- */
         .about-section { background: #fff; padding: 100px 20px; text-align: center; border-top: 1px solid #eee; }
         .about-content { max-width: 900px; margin: 0 auto; }
         .about-content h2 { font-size: 2.5rem; color: #007bff; margin-bottom: 25px; font-weight: 800; }
         .about-content p { font-size: 1.2rem; line-height: 1.9; color: #444; }
 
-        @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 15px; }
-            .nav-links { gap: 15px; font-size: 14px; }
-            .slide-content h1 { font-size: 2.8rem; }
-            .slide-content p { font-size: 1.2rem; }
-            .special-layout { flex-direction: column-reverse; }
-            .section-heading { font-size: 2rem; }
+        /* Footer */
+        footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
+        .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
+        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
+        .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: #007bff; padding-left: 5px; }
+        .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
+        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
+
+        /* --- MOBILE & TABLET RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1); 
+                padding: 20px 0; 
+                gap: 20px;
+            }
+            
+            .nav-links.active { display: flex; }
+            .mobile-actions { display: flex; }
+            .menu-toggle { display: block; }
+            .desktop-btn { display: none; }
+
+            .slide-content h1 { font-size: 2.5rem; }
+            .slide-content p { font-size: 1.1rem; }
+            
+            .download-box { padding: 20px; }
+            .download-box h2 { font-size: 20px; }
+            
+            .special-layout { flex-direction: column-reverse; gap: 40px;}
+            .section-heading { font-size: 2rem; margin-bottom: 30px; }
+            .about-content h2 { font-size: 2rem; }
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -208,12 +208,26 @@ border-radius:5px;
                 <img src="logo.jpg" alt="TalkTap Logo" class="app-logo"> 
                 <span class="app-name">TalkTap</span>
             </a>
-            <ul class="nav-links">
+            
+            <div class="mobile-actions">
+                <a href="login.html" class="btn-login" id="mobileLoginBtn">Login</a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+
+            <ul class="nav-links" id="nav-list">
                 <li><a href="index.html" style="color:#007bff">Home</a></li>
                 <li><a href="pricing.html">Pricing</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="safety.html">Safety Center</a></li>
                 <li><a href="connect.html">Connect</a></li>
+                <li class="desktop-btn"><a href="login.html" class="btn-login" id="desktopLoginBtn">Login</a></li>
+                <li class="desktop-btn">
+                    <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                        <i class="fa-solid fa-download"></i> Download App
+                    </a>
+                </li>
             </ul>
         </div>
     </header>
@@ -244,6 +258,16 @@ border-radius:5px;
         </div>
     </div>
     
+    <div class="download-box-section">
+        <div class="download-box">
+            <h2>Experience the Power of Live Audio</h2>
+            <p>Download the official TalkTap app now! Start hosting rooms, building your community, and engaging with millions of users instantly.</p>
+            <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                <i class="fa-solid fa-download"></i> Download Apk Now
+            </a>
+        </div>
+    </div>
+
     <div class="about-section" id="about">
         <div class="about-content">
             <h2>The Premier Live Audio Experience</h2>
@@ -297,62 +321,61 @@ border-radius:5px;
 
         </div>
     </div>
-<!-- STATS SECTION -->
-<section class="stats-section">
 
-<div class="stats-scroll">
+    <section class="stats-section">
+        <div class="stats-scroll">
+            <div class="stat-box">
+                <h2>50,000+</h2>
+                <p>Active Users</p>
+                <img src="users.png" class="stat-icon" alt="Users">
+            </div>
 
-<div class="stat-box">
-<h2>50,000+</h2>
-<p>Active Users</p>
-<img src="users.png" class="stat-icon">
-</div>
+            <div class="stat-box">
+                <h2>10,000+</h2>
+                <p>5 Star Ratings</p>
+                <img src="rating.png" class="stat-icon" alt="Ratings">
+            </div>
 
-<div class="stat-box">
-<h2>10,000+</h2>
-<p>5 Star Ratings</p>
-<img src="rating.png" class="stat-icon">
-</div>
+            <div class="stat-box">
+                <h2>500+</h2>
+                <p>Active Live Rooms</p>
+                <img src="podcast.png" class="stat-icon" alt="Rooms">
+            </div>
+        </div>
+    </section>
 
-<div class="stat-box">
-<h2>500+</h2>
-<p>Active Live Rooms</p>
-<img src="podcast.png" class="stat-icon">
-</div>
+    <section class="review-section">
+        <h2 class="section-heading">User Ratings & Reviews</h2>
+        <div class="review-scroll" id="reviewContainer">
+        </div>
+    </section>
 
-</div>
-
-</section>
-
-
-<!-- REVIEWS SECTION -->
-<section class="review-section">
-
-<h2 class="section-heading">User Ratings & Reviews</h2>
-
-<div class="review-scroll" id="reviewContainer">
-
-</div>
-
-</section>
     <footer>
         <div class="footer-container">
-        <div class="footer-left">
-    <a href="index.html" style="text-decoration: none; display: inline-block;">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-            <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
-            <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
-        </div>
-    </a>
-    
-    <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
-    <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
-</div>
+            <div class="footer-left">
+                <a href="index.html" style="text-decoration: none; display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+                        <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+                    </div>
+                </a>
+                
+                <p style="color: #888; font-size: 14px; margin-top: 10px; margin-bottom: 20px;">The ultimate destination for live audio streaming and professional community building.</p>
+                
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
+                <br>
+
+                <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 15px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+            </div>
+            
             <div class="footer-links">
                 <div>
                     <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
                     <a href="pricing.html">Pricing Plans</a><br><br>
                     <a href="safety.html">Safety Center</a><br><br>
+                     <a href="child_safety.html">Child Safety</a><br><br>
                     <a href="community.html">Community Guidelines</a>
                 </div>
                 <div>
@@ -368,10 +391,19 @@ border-radius:5px;
                 </div>
             </div>
         </div>
-        <div class="copyright">&copy; 2025 TalkTap Live Streaming. All rights reserved.</div>
+        <div class="copyright">&copy; 2026 TalkTap Live Streaming. All rights reserved.</div>
     </footer>
 
     <script>
+        // Mobile Menu Toggle JS
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Slider JS
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
@@ -384,68 +416,82 @@ border-radius:5px;
             currentSlide = (currentSlide + 1) % totalSlides;
             slides[currentSlide].classList.add('active');
         }
-
-        setInterval(nextSlide, 5000); // Changed to 5 seconds for better readability
+        setInterval(nextSlide, 5000); 
     </script>
-<script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDA78ez7-q18zGh70SPDYMHouivjmDF1O4",
+            authDomain: "talktap-a026c.firebaseapp.com",
+            databaseURL: "https://talktap-a026c-default-rtdb.firebaseio.com",
+            projectId: "talktap-a026c",
+            storageBucket: "talktap-a026c.firebasestorage.app",
+            messagingSenderId: "309329139235",
+            appId: "1:309329139235:web:6b136ad9db5195bce68396",
+            measurementId: "G-3PTFDRF0JB"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    
+    <script>
+        db.collection("reviews")
+        .orderBy("timestamp","desc")
+        .limit(20)
+        .get()
+        .then((querySnapshot)=>{
+            let html="";
+            querySnapshot.forEach((doc)=>{
+                const data = doc.data();
+                html += `
+                <div class="review-card">
+                <h3>${data.name}</h3>
+                <div class="stars">${"⭐".repeat(data.rating)}</div>
+                <p>${data.review}</p>
+                </div>
+                `;
+            });
+            document.getElementById("reviewContainer").innerHTML = html;
+        });
+    </script>
+    
+    <script>
+        const reviewScroll = document.querySelector(".review-scroll");
+        setInterval(()=>{
+            if(reviewScroll) {
+                reviewScroll.scrollBy({ left:320, behavior:"smooth" });
+            }
+        }, 4000);
+    </script>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDA78ez7-q18zGh70SPDYMHouivjmDF1O4",
-  authDomain: "talktap-a026c.firebaseapp.com",
-  databaseURL: "https://talktap-a026c-default-rtdb.firebaseio.com",
-  projectId: "talktap-a026c",
-  storageBucket: "talktap-a026c.firebasestorage.app",
-  messagingSenderId: "309329139235",
-  appId: "1:309329139235:web:6b136ad9db5195bce68396",
-  measurementId: "G-3PTFDRF0JB"
-};
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const userName = localStorage.getItem("userName");
+            const userCoins = localStorage.getItem("userCoins") || 0;
+            
+            // Check if user is logged in
+            if (userName && userName !== "New User") {
+                
+                // Update Desktop Login Button
+                const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+                if (desktopLoginBtn) {
+                    desktopLoginBtn.innerHTML = `<i class="fa-solid fa-coins" style="color: #ffb400;"></i> ${userCoins} &nbsp;|&nbsp; <i class="fa-solid fa-user"></i> ${userName}`;
+                    desktopLoginBtn.href = "#"; // Disable link to login page
+                    desktopLoginBtn.style.backgroundColor = "#eef2ff";
+                    desktopLoginBtn.style.color = "#007bff";
+                    desktopLoginBtn.style.border = "1px solid #007bff";
+                }
 
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-
-</script>
-<script>
-
-db.collection("reviews")
-.orderBy("timestamp","desc")
-.limit(20)
-.get()
-.then((querySnapshot)=>{
-
-let html="";
-
-querySnapshot.forEach((doc)=>{
-
-const data = doc.data();
-
-html += `
-<div class="review-card">
-<h3>${data.name}</h3>
-<div class="stars">${"⭐".repeat(data.rating)}</div>
-<p>${data.review}</p>
-</div>
-`;
-
-});
-
-document.getElementById("reviewContainer").innerHTML = html;
-
-});
-
-</script><script>
-
-const reviewScroll = document.querySelector(".review-scroll");
-
-setInterval(()=>{
-
-reviewScroll.scrollBy({
-left:320,
-behavior:"smooth"
-});
-
-},4000);
-
-</script>
+                // Update Mobile Login Button
+                const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+                if (mobileLoginBtn) {
+                    mobileLoginBtn.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+                    mobileLoginBtn.href = "#"; // Disable link to login page
+                    mobileLoginBtn.style.backgroundColor = "#eef2ff";
+                    mobileLoginBtn.style.color = "#007bff";
+                }
+            }
+        });
+    </script>
 </body>
 </html>

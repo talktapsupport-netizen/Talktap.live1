@@ -31,6 +31,25 @@
         .policy-hero h1 { font-size: 3rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -1px; }
         .last-updated { font-size: 0.9rem; font-weight: 600; background: rgba(255,255,255,0.15); display: inline-block; padding: 6px 20px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); }
 
+         /* 🔥 NEW: Download Button Style 🔥 */
+        .btn-download {
+            background-color: #007bff;
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        .btn-download:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+        }
+
         /* --- LEGAL CONTENT LAYOUT --- */
         .legal-container {
             max-width: 1200px;
@@ -104,6 +123,15 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="safety.html">Safety Center</a></li>
                 <li><a href="connect.html">Creator Center</a></li>
+                 <!-- 🔥 NEW: Download Button in Navbar 🔥 -->
+                <li>
+                    <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                        <i class="fa-solid fa-download"></i> Download App
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
             </ul>
         </div>
     </header>
@@ -212,16 +240,25 @@
         </div>
     </a>
     
+    
+                
+    
     <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
+   
+    <!-- 🔥 NEW: Download Button in Footer 🔥 -->
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download">
+                    <i class="fa-solid fa-download"></i> Download App
+                </a>
     <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
 </div>
-             <div class="footer-links">
+
+            <div class="footer-links">
                 <div>
                     <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
                     <a href="pricing.html">Pricing Plans</a><br><br>
                     <a href="safety.html">Safety Center</a><br><br>
-                     <a href="child_safety.html">Child Safety</a><br><br>
                     <a href="community.html">Community Guidelines</a>
+                    <a href="child_safety.html">Child safety</a>
                 </div>
                 <div>
                     <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>

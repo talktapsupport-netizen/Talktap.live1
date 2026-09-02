@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TalkTap Live</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .login-wrapper { display: flex; width: 1000px; max-width: 95%; background: #fff; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; min-height: 550px; }
+
+        /* --- SLIDER SECTION --- */
+        .slider-section { flex: 1; background-color: #007bff; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slide-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; transition: opacity 1s ease-in-out; opacity: 0; }
+        .slide-bg.active { opacity: 1; }
+        .slider-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,123,255,0.3), rgba(0,0,0,0.7)); }
+        .slider-content { position: relative; z-index: 2; color: white; text-align: center; padding: 30px; }
+        .slider-content img { width: 80px; border-radius: 12px; margin-bottom: 20px; }
+        .slider-content h2 { font-size: 2rem; margin-bottom: 10px; }
+
+        /* --- FORM SECTION --- */
+        .form-section { flex: 1; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        
+        .view-container { display: none; animation: fadeIn 0.4s ease; }
+        .view-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+        h2.form-title { font-size: 1.8rem; color: #1a1a1a; margin-bottom: 10px; font-weight: 800; }
+        p.form-subtitle { color: #666; margin-bottom: 25px; font-size: 0.95rem; }
+
+        /* Inputs */
+        .input-group { position: relative; margin-bottom: 20px; display: flex; align-items: center; }
+        .country-code { position: absolute; left: 15px; font-weight: bold; color: #333; font-size: 16px; border-right: 1px solid #ddd; padding-right: 10px; }
+        .phone-input { width: 100%; padding: 16px 16px 16px 65px; border: 2px solid #eef2ff; border-radius: 12px; font-size: 16px; background: #f8fafc; transition: 0.3s; }
+        .phone-input:focus { border-color: #007bff; background: #fff; outline: none; }
+
+        /* 🔥 Error Message Box */
+        .error-message {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: none; 
+            text-align: center;
+        }
+
+        /* Buttons */
+        .btn-primary { width: 100%; padding: 16px; background-color: #007bff; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-primary:disabled { background-color: #a0cfff; cursor: not-allowed; }
+        
+        .loader { display: none; width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* OTP Section Styles */
+        .otp-display-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: #f8fafc; padding: 12px 15px; border-radius: 8px; }
+        .otp-display-row span { font-weight: bold; color: #333; }
+        .btn-edit { color: #007bff; cursor: pointer; font-size: 14px; font-weight: bold; text-decoration: underline; border: none; background: transparent; }
+
+        .otp-inputs { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
+        .otp-box { width: 45px; height: 55px; text-align: center; font-size: 20px; font-weight: bold; border: 2px solid #ddd; border-radius: 10px; background: #fff; transition: 0.3s; }
+        .otp-box:focus { border-color: #007bff; outline: none; box-shadow: 0 0 5px rgba(0,123,255,0.3); }
+
+        .timer-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 20px; }
+        .timer-text { color: #555; }
+        .btn-resend { color: #999; cursor: not-allowed; font-weight: bold; border: none; background: transparent; }
+        .btn-resend.active { color: #007bff; cursor: pointer; text-decoration: underline; }
+
+        .terms-text { text-align: center; margin-top: 30px; font-size: 13px; color: #666; }
+        .terms-text a { color: #ff4081; text-decoration: none; font-weight: bold; }
+        
+        @media (max-width: 768px) {
+            .login-wrapper { flex-direction: column; height: 100vh; max-width: 100%; border-radius: 0; box-shadow: none; }
+            .slider-section { flex: 0.35; }
+            .form-section { flex: 0.65; padding: 30px 20px; border-radius: 24px 24px 0 0; margin-top: -20px; background: #fff; z-index: 10; }
+            .otp-box { width: 40px; height: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="slider-section">
+            <div class="slide-bg active" style="background-image: url('banner1.jpg'); background-color: #0056b3;"></div>
+            <div class="slide-bg" style="background-image: url('banner2.jpg'); background-color: #007bff;"></div>
+            <div class="slider-overlay"></div>
+            <div class="slider-content">
+                <img src="logo.jpg" alt="TalkTap" onerror="this.style.display='none'">
+                <h2>Welcome to TalkTap</h2>
+                <p>Join the best live audio streaming community.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            
+            <div id="view-mobile" class="view-container active">
+                <h2 class="form-title">Login / Register</h2>
+                <p class="form-subtitle">Enter your mobile number to continue</p>
+                
+                <div id="mobile-error" class="error-message"></div>
+                
+                <div class="input-group">
+                    <span class="country-code">+91</span>
+                    <input type="tel" id="mobile-input" class="phone-input" placeholder="Enter 10-digit number" maxlength="10">
+                </div>
+                
+                <button id="btn-send-otp" class="btn-primary" onclick="sendOtp(false)">
+                    <span class="btn-text" id="send-text">Get OTP</span>
+                    <div class="loader" id="loader-send"></div>
+                </button>
+
+                <p class="terms-text">
+                    By continuing you agree to our 
+                    <a href="terms.html">Terms of Use</a> & <a href="privacy.html">Privacy Policy</a>
+                </p>
+            </div>
+
+            <div id="view-otp" class="view-container">
+                <h2 class="form-title">Verify Phone</h2>
+                <p class="form-subtitle">Enter the 6-digit OTP sent to your number</p>
+                
+                <div id="otp-error" class="error-message"></div>
+                
+                <div class="otp-display-row">
+                    <span id="display-number">+91 </span>
+                    <button class="btn-edit" onclick="editNumber()">Edit</button>
+                </div>
+
+                <div class="otp-inputs" id="otp-container">
+                    <input type="tel" class="otp-box" maxlength="1">
+                    <input type="tel" class="otp-box" maxlength="1">
+                    <input type="tel" class="otp-box" maxlength="1">
+                    <input type="tel" class="otp-box" maxlength="1">
+                    <input type="tel" class="otp-box" maxlength="1">
+                    <input type="tel" class="otp-box" maxlength="1">
+                </div>
+
+                <div class="timer-row">
+                    <span class="timer-text">Resend in <span id="timer">01:00</span></span>
+                    <button id="btn-resend" class="btn-resend" onclick="sendOtp(true)" disabled>Resend OTP</button>
+                </div>
+
+                <button id="btn-verify-otp" class="btn-primary" onclick="verifyOtp()">
+                    <span class="btn-text" id="verify-text">Verify & Proceed</span>
+                    <div class="loader" id="loader-verify"></div>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. SUPABASE KEYS & SAFE INITIALIZATION
+        // ==========================================
+        const SUPABASE_URL = 'https://orgazhqmzpiaadrbzpvo.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZ2F6aHFtenBpYWFkcmJ6cHZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MDgyMzgsImV4cCI6MjA5OTI4NDIzOH0.vNINxsm0uy4hNyLRJl59j_esgA_i0IKLREi8Y4YFo-E';
+        
+        let supabaseClient = null;
+        let currentMobile = "";
+        let countdownInterval;
+
+        // ఇది గ్లోబల్ గా క్రాష్ అవ్వకుండా సురక్షితంగా లోడ్ చేస్తుంది
+        function getSupabase() {
+            if (supabaseClient) return supabaseClient;
+            if (!window.supabase) {
+                throw new Error("Supabase library loading failed. Please check internet/adblocker.");
+            }
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            return supabaseClient;
+        }
+
+        // UI Error Functions
+        function showError(elementId, msg) {
+            const errBox = document.getElementById(elementId);
+            errBox.innerText = msg;
+            errBox.style.display = 'block';
+        }
+        function hideError(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // ==========================================
+        // 2. DOM ELEMENTS & EVENT LISTENERS
+        // ==========================================
+        document.addEventListener("DOMContentLoaded", () => {
+            const slides = document.querySelectorAll('.slide-bg');
+            let currentSlide = 0;
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 3000);
+            }
+
+            const mobileInput = document.getElementById('mobile-input');
+            mobileInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                hideError('mobile-error'); 
+            });
+
+            const otpBoxes = document.querySelectorAll('.otp-box');
+            otpBoxes.forEach((box, index) => {
+                box.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, ''); 
+                    hideError('otp-error'); 
+                    if (e.target.value !== '' && index < otpBoxes.length - 1) {
+                        otpBoxes[index + 1].focus();
+                    }
+                });
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                        otpBoxes[index - 1].focus();
+                    }
+                });
+            });
+        });
+
+        // ==========================================
+        // 3. SEND OTP (SAFE EXECUTION)
+        // ==========================================
+        async function sendOtp(isResend) {
+            hideError('mobile-error');
+            const phoneVal = document.getElementById('mobile-input').value;
+            
+            if (phoneVal.length !== 10) {
+                showError('mobile-error', "Please enter a valid 10-digit mobile number.");
+                return;
+            }
+
+            currentMobile = phoneVal;
+            const btnSend = document.getElementById(isResend ? 'btn-resend' : 'btn-send-otp');
+            const loader = document.getElementById('loader-send');
+            const btnText = document.getElementById('send-text');
+
+            // లోడింగ్ స్టార్ట్
+            btnSend.disabled = true;
+            if (!isResend) {
+                btnText.style.display = 'none';
+                loader.style.display = 'block';
+            } else {
+                btnSend.innerText = "Sending...";
+            }
+
+            try {
+                const supabase = getSupabase(); // సురక్షితమైన ఇన్షియలైజేషన్ 
+                
+                const { error } = await supabase.auth.signInWithOtp({ 
+                    phone: '+91' + currentMobile 
+                });
+                
+                if (error) throw new Error(error.message);
+                
+                document.getElementById('display-number').innerText = '+91 ' + currentMobile;
+                switchView('view-otp');
+                startTimer();
+                
+            } catch (error) {
+                console.error("OTP Error:", error);
+                showError('mobile-error', "Error: " + error.message);
+            } finally {
+                btnSend.disabled = false;
+                if (!isResend) {
+                    loader.style.display = 'none';
+                    btnText.style.display = 'block';
+                } else {
+                    btnSend.innerText = "Resend OTP";
+                }
+            }
+        }
+
+        // ==========================================
+       // ==========================================
+        // 4. VERIFY OTP & CHECK USER IN DB
+        // ==========================================
+        async function verifyOtp() {
+            hideError('otp-error');
+            const otpBoxes = document.querySelectorAll('.otp-box');
+            let enteredOtp = "";
+            otpBoxes.forEach(box => enteredOtp += box.value);
+
+            if (enteredOtp.length !== 6) {
+                showError('otp-error', "Please enter the complete 6-digit OTP.");
+                return;
+            }
+
+            const btnVerify = document.getElementById('btn-verify-otp');
+            const loader = document.getElementById('loader-verify');
+            const btnText = document.getElementById('verify-text');
+            
+            // లోడింగ్ స్టార్ట్
+            btnVerify.disabled = true;
+            btnText.style.display = 'none';
+            loader.style.display = 'block';
+
+            try {
+                const supabase = getSupabase(); // సురక్షితమైన ఇన్షియలైజేషన్
+
+                // 1. Verify OTP
+                const { data: authData, error: authError } = await supabase.auth.verifyOtp({
+                    phone: '+91' + currentMobile,
+                    token: enteredOtp,
+                    type: 'sms'
+                });
+
+                if (authError) throw new Error("Invalid OTP or expired. Please try again.");
+
+                const user = authData.user;
+                
+                // 2. Fetch User Profile
+                // 🔥 మార్పు: select('*') వాడాను. కాలమ్స్ ఏవైనా ఎర్రర్ రాదు.
+                const { data: dbUser, error: dbError } = await supabase
+                    .from('register_user')
+                    .select('*') 
+                    .eq('uid', user.id)
+                    .maybeSingle();
+
+                // 🔥 మార్పు: అసలు డేటాబేస్ ఎర్రర్ ఏంటో ప్రింట్ చేస్తుంది
+                if (dbError) throw new Error("DB Error: " + dbError.message);
+
+                // 🔥 యూజర్ డేటా ఉంటే లాగిన్
+                if (dbUser) {
+                    // మీ టేబుల్ లో 'fullName' ఉంటే అది, లేదంటే 'name' తీసుకుంటుంది
+                    const finalName = dbUser.fullName || dbUser.name || "User";
+                    const finalCoins = dbUser.coins || 0;
+
+                    localStorage.setItem("uid", user.id);
+                    localStorage.setItem("phone", '+91' + currentMobile);
+                    localStorage.setItem("userName", finalName);
+                    localStorage.setItem("userCoins", finalCoins);
+                    
+                    window.location.href = "index.html"; 
+                } 
+                // 🔥 కొత్త యూజర్ అయితే రిజెక్ట్ చేయాలి
+                else {
+                    await supabase.auth.signOut();
+                    throw new Error("Account not found! Please register first on the TalkTap Mobile App.");
+                }
+
+            } catch (error) {
+                console.error("Verification Error:", error);
+                showError('otp-error', error.message);
+                
+                otpBoxes.forEach(box => box.value = ''); 
+                otpBoxes[0].focus();
+            } finally {
+                btnVerify.disabled = false;
+                loader.style.display = 'none';
+                btnText.style.display = 'block';
+            }
+        }
+
+        // ==========================================
+        // 5. HELPER FUNCTIONS
+        // ==========================================
+        function startTimer() {
+            let time = 60; 
+            const timerDisplay = document.getElementById('timer');
+            const btnResend = document.getElementById('btn-resend');
+            
+            btnResend.disabled = true;
+            btnResend.classList.remove('active');
+            clearInterval(countdownInterval);
+
+            countdownInterval = setInterval(() => {
+                time--;
+                let seconds = time % 60;
+                timerDisplay.innerText = `00:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (time <= 0) {
+                    clearInterval(countdownInterval);
+                    timerDisplay.innerText = "00:00";
+                    btnResend.disabled = false;
+                    btnResend.classList.add('active');
+                }
+            }, 1000);
+        }
+
+        function editNumber() {
+            clearInterval(countdownInterval);
+            switchView('view-mobile');
+            document.querySelectorAll('.otp-box').forEach(box => box.value = '');
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view-container').forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

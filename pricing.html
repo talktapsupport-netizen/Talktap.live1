@@ -6,86 +6,86 @@
     <title>Pricing & Coins - TalkTap Live Streaming</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <style>
-        /* --- GLOBAL STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
-        /* Header */
-        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { background-color: #ffffff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
         .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .app-logo { height: 42px; width: auto; border-radius: 8px; }
-        .app-name { font-size: 26px; font-weight: 800; color: #6366f1; letter-spacing: -1px; }
-        .nav-links { list-style: none; display: flex; gap: 25px; }
-        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 600; font-size: 15px; transition: 0.3s; }
-        .nav-links a:hover { color: #6366f1; }
+        .app-name { font-size: 26px; font-weight: 800; color: #007bff; letter-spacing: -1px; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: 0.3s; padding-bottom: 5px; }
+        .nav-links a:hover { color: #007bff; }
+        .active-link { color: #007bff !important; border-bottom: 2px solid #007bff; }
 
-        /* --- PRICING HERO SECTION --- */
-        .pricing-hero {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-        }
-        .pricing-hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
-        .pricing-hero p { font-size: 1.2rem; max-width: 750px; margin: 0 auto; opacity: 0.95; line-height: 1.6; }
+        .mobile-actions { display: none; align-items: center; gap: 15px; }
+        .btn-login { background-color: transparent; color: #007bff; border: 2px solid #007bff; padding: 6px 18px; border-radius: 25px; font-weight: 700; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-login:hover { background-color: #007bff; color: #ffffff; }
+        .menu-toggle { font-size: 24px; color: #333; cursor: pointer; display: none; }
 
-        /* --- COIN PACKAGES --- */
-        .coin-packages-section { max-width: 1200px; margin: -50px auto 80px auto; padding: 0 20px; position: relative; z-index: 10; }
-        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        
-        .package-card {
-            background: white;
-            padding: 45px 30px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            text-align: center;
-            border: 1px solid #f1f5f9;
-            transition: all 0.3s ease;
-        }
-        .package-card:hover { transform: translateY(-10px); border-color: #6366f1; box-shadow: 0 25px 50px rgba(99, 102, 241, 0.15); }
-        
-        /* Best Value Badge */
-        .featured-card { border: 3px solid #6366f1; position: relative; }
-        .badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #6366f1; color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
+        .btn-download { background-color: #007bff; color: #ffffff !important; padding: 10px 20px; border-radius: 25px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); text-decoration: none; white-space: nowrap; }
+        .btn-download:hover { background-color: #0056b3; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5); }
 
-        .icon-coin-box { width: 80px; height: 80px; background: #fffcf0; color: #fbbf24; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 35px; margin: 0 auto 25px auto; box-shadow: 0 8px 20px rgba(251, 191, 36, 0.15); }
+        .pricing-hero { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 60px 20px; text-align: center; }
+        .pricing-hero h1 { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; letter-spacing: -1px; }
+        .pricing-hero p { font-size: 1rem; max-width: 700px; margin: 0 auto 20px auto; opacity: 0.95; line-height: 1.5; }
+
+        .balance-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.2); padding: 8px 20px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(5px); }
+        .balance-badge i { color: #ffb400; font-size: 1.2rem; }
+
+        .coin-packages-section { max-width: 1000px; margin: -30px auto 60px auto; padding: 0 15px; position: relative; z-index: 10; }
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; justify-content: center; margin-bottom: 30px; }
         
-        .package-card h3 { color: #0f172a; font-size: 1.6rem; margin-bottom: 10px; font-weight: 800; }
-        .package-card .price { font-size: 2.8rem; font-weight: 900; color: #1e293b; margin-bottom: 25px; }
-        .package-card .price small { font-size: 0.9rem; color: #64748b; font-weight: 500; }
+        .package-card { background: white; padding: 20px 10px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border: 2px solid #e2e8f0; cursor: pointer; transition: all 0.2s ease; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+        .package-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 123, 255, 0.15); border-color: #93c5fd; }
         
-        .buy-btn {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-            padding: 15px 35px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 700;
-            display: block;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
-        }
-        .buy-btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3); }
+        .package-card.selected { border-color: #007bff; background-color: #f0f7ff; box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); transform: translateY(-3px); }
+        .package-card.selected::after { content: '\f058'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #007bff; font-size: 18px; position: absolute; top: 8px; right: 10px; }
+
+        .featured-card { border: 2px solid #007bff; }
+        .badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.2);}
+        .badge-popular { background: #007bff; }
+        .badge-new { background: #10b981; }
+
+        .icon-coin-box { width: 45px; height: 45px; background: #fffcf0; color: #fbbf24; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; margin-bottom: 10px; }
         
-        .note-box { background: white; padding: 30px; border-radius: 20px; text-align: center; margin-top: 50px; border: 1px dashed #cbd5e1; }
-        .note-box p { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
-         /* Footer */
+        .package-card h3 { color: #0f172a; font-size: 1.2rem; margin-bottom: 2px; font-weight: 800; }
+        .package-card .desc { color: #64748b; font-size: 0.75rem; margin-bottom: 8px; }
+        .package-card .price { font-size: 1.5rem; font-weight: 900; color: #1e293b; margin-bottom: 5px; }
+        .package-card .discount { color: #10b981; font-size: 0.75rem; font-weight: 700; margin-top: auto; }
+
+        .checkout-section { background: white; padding: 25px; border-radius: 16px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .pay-btn { background: #007bff; color: white; padding: 14px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); border: none; cursor: pointer; width: 100%; max-width: 320px; }
+        .pay-btn:hover { background: #0056b3; transform: scale(1.02); }
+        .pay-btn:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; transform: none; color: #64748b; }
+        
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #fff; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         footer { background-color: #111; color: white; padding: 60px 0 30px; margin-top: auto; }
         .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px solid #333; padding-bottom: 40px; }
         .footer-left { flex: 1; min-width: 250px; margin-bottom: 20px; }
-        .footer-left .app-name { color: white; margin-bottom: 10px; display: block; }
         .footer-links { flex: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
         .footer-links a { color: #bbb; text-decoration: none; font-size: 14px; transition: 0.3s; }
-        .footer-links a:hover { color: #007bff; padding-left: 5px; }
         .copyright { text-align: center; padding-top: 25px; font-size: 13px; color: #777; }
-        
-        .legal-name { display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600; }
 
-        @media (max-width: 768px) {
-            .pricing-hero h1 { font-size: 2.5rem; }
-            .nav-container { flex-direction: column; gap: 20px; }
+        @media (max-width: 900px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; box-shadow: 0 10px 10px rgba(0,0,0,0.1); padding: 20px 0; gap: 20px; z-index: 1000; }
+            .nav-links.active { display: flex; }
+            .mobile-actions { display: flex; }
+            .menu-toggle { display: block; }
+            .desktop-btn { display: none; }
+            .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .package-card { padding: 15px 10px; }
+            .package-card h3 { font-size: 1rem; }
+            .package-card .price { font-size: 1.3rem; }
+            .icon-coin-box { width: 40px; height: 40px; font-size: 20px; }
         }
     </style>
 </head>
@@ -94,102 +94,268 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo-area">
-                <img src="logo.jpg" alt="TalkTap" class="app-logo"> 
+                <img src="logo.jpg" alt="TalkTap Logo" class="app-logo"> 
                 <span class="app-name">TalkTap</span>
             </a>
-            <ul class="nav-links">
+            <div class="mobile-actions">
+                <a href="login.html" class="btn-login" id="mobileLoginBtn">Login</a>
+                <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            </div>
+            <ul class="nav-links" id="nav-list">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="pricing.html" style="color:#6366f1">Pricing</a></li>
+                <li><a href="pricing.html" class="active-link">Pricing</a></li>
                 <li><a href="safety.html">Safety Center</a></li>
                 <li><a href="connect.html">Creator Center</a></li>
+                <li class="desktop-btn"><a href="login.html" class="btn-login" id="desktopLoginBtn">Login</a></li>
             </ul>
         </div>
     </header>
 
     <div class="pricing-hero">
         <h1>Support the Creator Economy</h1>
-        <p>Purchase TalkTap Coins to appreciate your favorite broadcasters, send virtual gifts, and unlock exclusive live streaming features.</p>
+        <p>Purchase TalkTap Coins to appreciate your favorite broadcasters and send virtual gifts.</p>
+        <div class="balance-badge" id="balanceBadge" style="display: none;">
+            <i class="fa-solid fa-coins"></i> Available Coins: <span id="currentCoins">0</span>
+        </div>
     </div>
 
     <div class="coin-packages-section">
-        <div class="packages-grid">
-            
-            <div class="package-card">
-                <div class="icon-coin-box"><i class="fa-solid fa-coins"></i></div>
-                <h3>24 Coins</h3>
-                <p style="color:#64748b; margin-bottom:15px;">Starter Pack</p>
-                <div class="price">₹ 49 <small>Incl. Taxes</small></div>
-                <a href="#" class="buy-btn" onclick="alert('Redirecting to secure payment...')">Buy Now</a>
-            </div>
-
-            <div class="package-card featured-card">
-                <div class="badge">Most Popular</div>
-                <div class="icon-coin-box" style="color:#fbbf24;"><i class="fa-solid fa-gem"></i></div>
-                <h3>89 Coins</h3>
-                <p style="color:#64748b; margin-bottom:15px;">Value Pack</p>
-                <div class="price">₹ 119 <small>(Best Deal)</small></div>
-                <a href="#" class="buy-btn" onclick="alert('Redirecting to secure payment...')">Buy Now</a>
-            </div>
-
-            <div class="package-card">
-                <div class="icon-coin-box" style="color:#f59e0b;"><i class="fa-solid fa-crown"></i></div>
-                <h3>199 Coins</h3>
-                <p style="color:#64748b; margin-bottom:15px;">Talent Supporter</p>
-                <div class="price">₹ 149 <small>(10% Bonus)</small></div>
-                <a href="#" class="buy-btn" onclick="alert('Redirecting to secure payment...')">Buy Now</a>
-            </div>
-
-             <div class="package-card">
-                <div class="icon-coin-box" style="color:#ef4444;"><i class="fa-solid fa-fire-flame-curved"></i></div>
-                <h3>349 Coins</h3>
-                <p style="color:#64748b; margin-bottom:15px;">Mega Fan Pack</p>
-                <div class="price">₹ 219 <small>(Limited Time)</small></div>
-                <a href="#" class="buy-btn" onclick="alert('Redirecting to secure payment...')">Buy Now</a>
-            </div>
-
+        <div class="packages-grid" id="packagesContainer">
+            <p style="text-align: center; width: 100%; color: #666; font-size: 1.1rem; padding: 40px; grid-column: 1 / -1;">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading packages...
+            </p>
         </div>
 
-        <div class="note-box">
-            <p><strong>Safe & Secure Payments:</strong> All transactions are protected by industry-standard encryption. TalkTap Coins are digital goods used exclusively for in-app gifting and appreciation of broadcasters. Please read our <a href="refund.html" style="color:#6366f1;">Refund Policy</a> before purchasing.</p>
+        <div class="checkout-section">
+            <button id="payBtn" class="pay-btn" disabled onclick="handlePayment()">
+                <span id="payBtnText">Select a package</span>
+                <div class="loader" id="payLoader"></div>
+            </button>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top: 15px;">
+                <i class="fa-solid fa-shield-halved"></i> 100% Safe & Secure Payments via Razorpay
+            </p>
         </div>
     </div>
 
-
     <footer>
         <div class="footer-container">
-        <div class="footer-left">
-    <a href="index.html" style="text-decoration: none; display: inline-block;">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-            <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
-            <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
-        </div>
-    </a>
-    
-    <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
-    <span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 8px; font-weight: 600;">A product of RAMESH CHILAKA</span>
-</div>
+            <div class="footer-left">
+                <a href="index.html" style="text-decoration: none; display: inline-block;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <img src="logo.jpg" alt="TalkTap Logo" style="height: 35px; width: auto; border-radius: 6px;"> 
+                        <span class="app-name" style="color: white; font-size: 24px; font-weight: 800;">TalkTap</span>
+                    </div>
+                </a>
+                <p style="color: #888; font-size: 14px; margin-top: 10px;">The ultimate destination for live audio streaming and professional community building.</p>
+                <a href="talktap.apk" download="TalkTap.apk" class="btn-download"><i class="fa-solid fa-download"></i> Download App</a>
+                <br><span class="legal-name" style="display: block; font-size: 12px; color: #007bff; margin-top: 15px; font-weight: 600;">A product of RAMESH CHILAKA</span>
+            </div>
             <div class="footer-links">
-                <div>
-                    <h4 style="margin-bottom:15px; color: #fff;">Platform</h4>
-                    <a href="pricing.html">Pricing Plans</a><br><br>
-                    <a href="safety.html">Safety Center</a><br><br>
-                    <a href="community.html">Community Guidelines</a>
-                </div>
-                <div>
-                    <h4 style="margin-bottom:15px; color: #fff;">Legal</h4>
-                    <a href="privacy.html">Privacy Policies</a><br><br>
-                    <a href="terms.html">Terms & Conditions</a><br><br>
-                    <a href="refund.html">Refund Policy</a>
-                </div>
-                <div>
-                    <h4 style="margin-bottom:15px; color: #fff;">Support</h4>
-                    <a href="index.html#about">About Our Vision</a><br><br>
-                    <a href="contact.html">Contact Us</a>
-                </div>
+                <div><h4 style="margin-bottom:15px; color: #fff;">Platform</h4><a href="pricing.html">Pricing Plans</a><br><br><a href="safety.html">Safety Center</a><br><br><a href="community.html">Community Guidelines</a></div>
+                <div><h4 style="margin-bottom:15px; color: #fff;">Legal</h4><a href="privacy.html">Privacy Policies</a><br><br><a href="terms.html">Terms & Conditions</a><br><br><a href="refund.html">Refund Policy</a></div>
+                <div><h4 style="margin-bottom:15px; color: #fff;">Support</h4><a href="index.html#about">About Our Vision</a><br><br><a href="contact.html">Contact Us</a></div>
             </div>
         </div>
-        <div class="copyright">&copy; 2025 TalkTap Live Streaming. All rights reserved.</div>
+        <div class="copyright">&copy; 2026 TalkTap Live Streaming. All rights reserved.</div>
     </footer>
 
+    <script>
+        // 🔴 SUPABASE CONFIGURATION
+        const SUPABASE_URL = 'https://orgazhqmzpiaadrbzpvo.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZ2F6aHFtenBpYWFkcmJ6cHZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MDgyMzgsImV4cCI6MjA5OTI4NDIzOH0.vNINxsm0uy4hNyLRJl59j_esgA_i0IKLREi8Y4YFo-E';
+        
+        // 🔴 RAZORPAY KEY ID FOR FRONTEND
+        const RAZORPAY_KEY_ID = 'rzp_test_YOUR_KEY_HERE'; // ఇక్కడ మీ నిజమైన పబ్లిక్ కీ పెట్టండి
+
+        let supabaseClient = null;
+        function getSupabase() {
+            if (supabaseClient) return supabaseClient;
+            if (window.supabase) { supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+            return supabaseClient;
+        }
+
+        let selectedPackage = null;
+        let userId = localStorage.getItem("uid");
+
+        document.getElementById('mobile-menu').addEventListener('click', () => { 
+            document.getElementById('nav-list').classList.toggle('active'); 
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            updateUserUI(); 
+            await fetchPackages(); 
+        });
+
+        function updateUserUI() {
+            const userName = localStorage.getItem("userName");
+            const userCoins = localStorage.getItem("userCoins") || 0;
+            
+            if (userName && userName !== "New User" && userId) {
+                const desktopLoginBtn = document.getElementById('desktopLoginBtn');
+                if (desktopLoginBtn) {
+                    desktopLoginBtn.innerHTML = `<i class="fa-solid fa-coins" style="color: #ffb400;"></i> ${userCoins} &nbsp;|&nbsp; <i class="fa-solid fa-user"></i> ${userName}`;
+                    desktopLoginBtn.href = "#"; 
+                    desktopLoginBtn.style.backgroundColor = "#eef2ff";
+                }
+                const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+                if (mobileLoginBtn) {
+                    mobileLoginBtn.innerHTML = `<i class="fa-solid fa-user"></i> ${userName}`;
+                    mobileLoginBtn.href = "#"; 
+                    mobileLoginBtn.style.backgroundColor = "#eef2ff";
+                }
+                document.getElementById('balanceBadge').style.display = 'inline-flex';
+                document.getElementById('currentCoins').innerText = userCoins;
+            }
+        }
+
+        async function fetchPackages() {
+            const container = document.getElementById('packagesContainer');
+            try {
+                const supabase = getSupabase();
+                const { data, error } = await supabase.from('coin_packages').select('*').order('price', { ascending: true });
+                
+                if (error) throw error;
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; width:100%; color:#dc3545; font-weight:bold; grid-column: 1 / -1;">No packages found in Database.</p>';
+                    return;
+                }
+                
+                container.innerHTML = ''; 
+                data.forEach((pkg) => {
+                    let badgeHTML = '';
+                    if (pkg.is_most_popular) badgeHTML = '<div class="badge badge-popular">Popular</div>';
+                    else if (pkg.is_new_user_offer) badgeHTML = '<div class="badge badge-new">New User</div>';
+
+                    let discountHTML = pkg.discount_percentage ? `<div class="discount">${pkg.discount_percentage}% OFF</div>` : '';
+
+                    const cardHTML = `
+                        <div class="package-card ${pkg.is_most_popular ? 'featured-card' : ''}" 
+                             onclick="selectPackage('${pkg.id}', ${pkg.price}, ${pkg.coins}, this)">
+                            ${badgeHTML}
+                            <div class="icon-coin-box"><i class="fa-solid fa-coins"></i></div>
+                            <h3>${pkg.coins}</h3>
+                            <p class="desc">${pkg.package_name || 'Coins'}</p>
+                            <div class="price">₹${pkg.price}</div>
+                            ${discountHTML}
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            } catch (err) {
+                container.innerHTML = `<p style="color:red; text-align:center; width:100%; grid-column: 1 / -1;">Error: ${err.message}</p>`;
+            }
+        }
+
+        function selectPackage(id, price, coins, element) {
+            document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPackage = { id, price, coins };
+            const payBtn = document.getElementById('payBtn');
+            const payText = document.getElementById('payBtnText');
+            payBtn.disabled = false;
+            payText.innerText = `Proceed to Pay ₹${price}`;
+            payBtn.style.color = "white";
+        }
+
+        // ==========================================
+        // PAYMENT HANDLING WITH YOUR EDGE FUNCTION
+        // ==========================================
+        async function handlePayment() {
+            if (!userId) {
+                alert("Please login first to buy coins.");
+                window.location.href = "login.html";
+                return;
+            }
+            if (!selectedPackage) return;
+
+            const payBtn = document.getElementById('payBtn');
+            const payText = document.getElementById('payBtnText');
+            const loader = document.getElementById('payLoader');
+
+            payBtn.disabled = true;
+            payText.style.display = 'none';
+            loader.style.display = 'inline-block';
+
+            try {
+                const supabase = getSupabase();
+                
+                // 🔥 1. Calling initiatepayment exactly as your Edge Function expects (sending amount)
+                const { data: initData, error: initError } = await supabase.functions.invoke('initiatepayment', {
+                    body: { amount: selectedPackage.price }
+                });
+
+                if (initError) throw new Error("Payment initiation failed: " + initError.message);
+
+                // 🔥 Check for success flag because your function returns 200 even for errors
+                if (!initData || initData.success === false) {
+                    throw new Error(initData?.message || "Failed to create order");
+                }
+
+                const options = {
+                    "key": RAZORPAY_KEY_ID, // Loaded from frontend
+                    "amount": initData.amount, // Value in paise from your backend
+                    "currency": initData.currency,
+                    "name": "TalkTap Coins",
+                    "description": `Purchase of ${selectedPackage.coins} Coins`,
+                    "order_id": initData.orderId, // Based on your backend returning orderId
+                    "handler": async function (response) {
+                        
+                        payText.innerText = "Verifying Payment...";
+                        payText.style.display = 'block';
+                        loader.style.display = 'inline-block';
+
+                        // STEP 2: Call 'verifyAndAddcoins'
+                        const { data: verifyData, error: verifyError } = await supabase.functions.invoke('verifyAndAddcoins', {
+                            body: {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                                package_id: selectedPackage.id,
+                                user_id: userId,
+                                amount: selectedPackage.price
+                            }
+                        });
+
+                        // Again, checking for verifyData.success due to Ktor workaround
+                        if (verifyError || !verifyData || verifyData.success === false) {
+                            alert("Payment verification failed! " + (verifyData?.message || ""));
+                        } else {
+                            const currentCoins = parseInt(localStorage.getItem('userCoins') || 0);
+                            const newBalance = currentCoins + selectedPackage.coins;
+                            
+                            localStorage.setItem('userCoins', newBalance);
+                            updateUserUI(); 
+                            
+                            alert(`Success! ${selectedPackage.coins} Coins have been added to your account.`);
+                            
+                            document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
+                            selectedPackage = null;
+                            payBtn.disabled = true;
+                            payText.innerText = "Select a package";
+                        }
+                        payText.style.display = 'block';
+                        loader.style.display = 'none';
+                    },
+                    "theme": { "color": "#007bff" }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response){
+                    alert("Payment Failed: " + response.error.description);
+                    payBtn.disabled = false;
+                    payText.style.display = 'block';
+                    loader.style.display = 'none';
+                });
+                rzp.open();
+
+            } catch (error) {
+                console.error("Payment Error:", error);
+                alert(error.message);
+                payBtn.disabled = false;
+                payText.style.display = 'block';
+                loader.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
